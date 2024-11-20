@@ -3,13 +3,15 @@ package model;
 public class Produto {
     private int codigoProduto;
     private String nomeProduto;
+    private String tipo;
     
-    public Produto(int codigoProduto, String nomeProduto) {
-        this.codigoProduto = codigoProduto;
-        this.nomeProduto = nomeProduto;
-    }
-    
-    public int getCodigoProduto() {
+    public Produto(int codigoProduto, String nomeProduto, String tipo) {
+		this.codigoProduto = codigoProduto;
+		this.nomeProduto = nomeProduto;
+		this.tipo = tipo;
+	}
+
+	public int getCodigoProduto() {
         return codigoProduto;
     }
 
@@ -24,13 +26,20 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+    
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public String toString() {
-		return "Produto [codigoProduto=" + 
-	codigoProduto + 
-	", nomeProduto=" + 
-	nomeProduto + "]";
+		return "Produto [codigoProduto=" + codigoProduto + ", nomeProduto=" + nomeProduto + ", tipo=" + tipo + "]";
 	}
+
+
     
 }

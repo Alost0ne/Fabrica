@@ -3,13 +3,16 @@ package model;
 public class MateriaPrima {
     private int codMateriaPrima;
     private String nomeMateriaPrima;
+    private String tipo;
 
-    public MateriaPrima(int codMateriaPrima, String nomeMateriaPrima) {
-        this.codMateriaPrima = codMateriaPrima;
-        this.nomeMateriaPrima = nomeMateriaPrima;
-    }
+	public MateriaPrima(int codMateriaPrima, String nomeMateriaPrima, String tipo) {
+		super();
+		this.codMateriaPrima = codMateriaPrima;
+		this.nomeMateriaPrima = nomeMateriaPrima;
+		this.tipo = tipo;
+	}
 
-    public int getCodMateriaPrima() {
+	public int getCodMateriaPrima() {
         return codMateriaPrima;
     }
 
@@ -25,13 +28,21 @@ public class MateriaPrima {
         this.nomeMateriaPrima = nomeMateriaPrima;
     }
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public String toString() {
-		return "MateriaPrima [codMateriaPrima=" + 
-				codMateriaPrima + 
-				", nomeMateriaPrima=" + 
-				nomeMateriaPrima + "]";
+		return "MateriaPrima [codMateriaPrima=" + codMateriaPrima + ", nomeMateriaPrima=" + nomeMateriaPrima + ", tipo="
+				+ tipo + "]";
 	}
+
+
     
     
 }

@@ -11,20 +11,20 @@ public class usaInterface {
 
 	public static void main(String[] args) {
 	
-		Produto produto = new Produto(1, "plastico");
+		Produto produto = new Produto(1, "plastico", "PD");
 		ProdutoDAO produtoDAO = new ProdutoDAO();
-		//produtoDAO.inserir(produto);
-		//produtoDAO.excluir(1);
+		produtoDAO.cadastrar(produto);
+		produtoDAO.excluir(1);
 		
-		MateriaPrima materiaPrima = new MateriaPrima(3, "master");
+		MateriaPrima materiaPrima = new MateriaPrima(3, "Master", "MP");
 		MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
-		//materiaPrimaDAO.inserir(materiaPrima);
-		//materiaPrimaDAO.excluir(3);
+		materiaPrimaDAO.cadastrar(materiaPrima);
+		materiaPrimaDAO.excluir(3);
 	
 		Maquina maquina = new Maquina(2, "Maquina");
 		MaquinaDAO maquinaDAO = new MaquinaDAO();
-		//maquinaDAO.inserir(maquina);
-		//maquinaDAO.excluir(2);
+		maquinaDAO.cadastrar(maquina);
+		maquinaDAO.excluir(2);
 		
 		
 	}

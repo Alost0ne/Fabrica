@@ -4,33 +4,25 @@ public class Estoque {
 	
 	private final int COD_ESTOQUE = 10;
 	
-	 private int codEstoque = COD_ESTOQUE;
-	    private String tipoItem; // Deve ser "Produto" ou "MateriaPrima"
+	 private int codEstoque;
 	    private int codigoItem; // Código relacionado ao tipo do item
 	    private double quantidade; // Quantidade no estoque
 
-	 public Estoque(int idEstoque, String tipoItem, int codigoItem, double quantidade) {
-		 this.codEstoque = idEstoque;
-		 setTipoItem(tipoItem); // Validações podem ocorrer nos setters
-		 this.codigoItem = codigoItem;
-		 this.quantidade = quantidade;
-	    }
-
+	public Estoque(int codEstoque) {
+			this.codEstoque = codEstoque;
+		}
+	
 	public int getCodEstoque() {
-        return codEstoque;
-    }
+		return codEstoque;
+	}
 
-	public String getTipoItem() {
-        return tipoItem;
-    }
-
-    public void setTipoItem(String tipoItem) {
-        // Validação do tipo do item
-        if (!tipoItem.equals("Produto") && !tipoItem.equals("MateriaPrima")) {
-            throw new IllegalArgumentException("Tipo de item deve ser 'Produto' ou 'MateriaPrima'");
-        }
-        this.tipoItem = tipoItem;
-    }
+	public void setCodEstoque(int codEstoque) {
+	    if (codEstoque == COD_ESTOQUE) {
+	        this.codEstoque = codEstoque;
+	    } else {
+	        System.out.println("O código do estoque deve ser 10!");
+	    }
+	}
 
     public int getCodigoItem() {
         return codigoItem;
@@ -55,7 +47,6 @@ public class Estoque {
     public String toString() {
         return "Estoque{" +
                 "idEstoque=" + codEstoque +
-                ", tipoItem='" + tipoItem + '\'' +
                 ", codigoItem=" + codigoItem +
                 ", quantidade=" + quantidade +
                 '}';

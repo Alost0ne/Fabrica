@@ -12,17 +12,18 @@ public class ProdutoDAO {
 	    bd = new BD(); // Cria uma nova instância de BD
 	}
 	
-	public String inserir(Produto produto) {
-		sql = "insert into produto values (?,?)";
+	public String cadastrar(Produto produto) {
+		sql = "insert into produto values (?,?,?)";
 		bd.getConnection();
 		try {
 			bd.st = bd.con.prepareStatement(sql);
 			bd.st.setInt(1, produto.getCodigoProduto());
 			bd.st.setString(2, produto.getNomeProduto());
+			bd.st.setString(3, produto.getTipo());
 			bd.st.executeUpdate();
-			men = "Produto inserido com sucesso!";
+			men = "Produto cadastrado com sucesso!";
 		}catch(SQLException e) {
-			men = "Falha na inclusão" + e;
+			men = "Falha no cadastro" + e;
 		}finally {
 			bd.close();
 		}
@@ -30,8 +31,33 @@ public class ProdutoDAO {
 	}
 	
 	public String alterar() {	
-		// TODO Auto-generated method stub
-		return null;
+		sql = "insert into produto values (?,?,?)";
+		bd.getConnection();
+		try {
+			bd.st = bd.con.prepareStatement(sql);
+			bd.st.setInt(1, produto.getCodigoProduto());
+			bd.st.setString(2, produto.getNomeProduto());
+			bd.st.setString(3, produto.getTipo());
+			bd.st.executeUpdate();
+			men = "Produto cadastrado com sucesso!";
+		}catch(SQLException e) {
+			men = "Falha no cadastro" + e;
+			
+			sql = "update produto values (?,?,?)";
+			try {
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setInt(1, produto.getCodigoProduto());
+				bd.st.setString(2, produto.getNomeProduto());
+				bd.st.setString(3, produto.getTipo());
+				bd.st.executeUpdate();
+				men = "Produto cadastrado com sucesso!";
+			}catch(SQLException erro) {
+				men = "Falha" + e.toString();
+			}
+		}finally {
+			bd.close();
+		}
+		return men;
 	}
 
 	public String excluir(Object codigoProduto) {
@@ -48,7 +74,7 @@ public class ProdutoDAO {
 					men = "Produto não encontrado!";
 				}
 			} catch (SQLException e) {
-				men = "Falha" + e;
+				men = "Falha na exclusão" + e;
 			} finally {
 				bd.close();
 			}

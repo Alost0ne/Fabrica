@@ -12,17 +12,18 @@ public class MateriaPrimaDAO {
 	    bd = new BD(); // Cria uma nova instância de BD
 	}
 	
-	public String inserir(MateriaPrima materiaPrima) {
-		sql = "insert into materiaPrima values (?,?)";
+	public String cadastrar(MateriaPrima materiaPrima) {
+		sql = "insert into materiaPrima values (?,?,?)";
 		bd.getConnection();
 		try {
 			bd.st = bd.con.prepareStatement(sql);
 			bd.st.setInt(1, materiaPrima.getCodMateriaPrima());
 			bd.st.setString(2, materiaPrima.getNomeMateriaPrima());
+			bd.st.setString(3, materiaPrima.getTipo());
 			bd.st.executeUpdate();
-			men = "Materia-prima inserido com sucesso!";
+			men = "Materia-prima cadastrada com sucesso!";
 		}catch(SQLException e) {
-			men = "Falha na inclusão" + e;
+			men = "Falha no cadastro" + e;
 		}finally {
 			bd.close();
 		}
@@ -48,7 +49,7 @@ public class MateriaPrimaDAO {
 					men = "Materia-prima não encontrada!";
 				}
 			} catch (SQLException e) {
-				men = "Falha" + e;
+				men = "Falha na exclusão" + e;
 			} finally {
 				bd.close();
 			}
