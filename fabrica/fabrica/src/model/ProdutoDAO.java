@@ -2,6 +2,8 @@ package model;
 
 import java.sql.SQLException;
 
+import controler.BD;
+
 public class ProdutoDAO {
 
 	public Produto produto;
@@ -27,10 +29,11 @@ public class ProdutoDAO {
 		}finally {
 			bd.close();
 		}
+		System.out.println(men);
 		return men;
 	}
 	
-	public String alterar() {	
+	public String alterar(Produto produto) {
 		sql = "insert into produto values (?,?,?)";
 		bd.getConnection();
 		try {
@@ -41,24 +44,43 @@ public class ProdutoDAO {
 			bd.st.executeUpdate();
 			men = "Produto cadastrado com sucesso!";
 		}catch(SQLException e) {
-			men = "Falha no cadastro" + e;
-			
-			sql = "update produto values (?,?,?)";
+			sql = "update produto set nomeProduto=?,tipo=? where codigoProduto=?";			
 			try {
 				bd.st = bd.con.prepareStatement(sql);
-				bd.st.setInt(1, produto.getCodigoProduto());
-				bd.st.setString(2, produto.getNomeProduto());
-				bd.st.setString(3, produto.getTipo());
+				bd.st.setInt(3, produto.getCodigoProduto());
+				bd.st.setString(1, produto.getNomeProduto());
+				bd.st.setString(2, produto.getTipo());
 				bd.st.executeUpdate();
-				men = "Produto cadastrado com sucesso!";
+				men = "Produto alterado com sucesso!";
 			}catch(SQLException erro) {
-				men = "Falha" + e.toString();
+				men = "Falha" + erro;
 			}
+			men = "Falha no cadastro" + e;
 		}finally {
 			bd.close();
 		}
+		System.out.println(men);
 		return men;
 	}
+	
+	/*public String alterar(Produto produto) {	
+			sql = "update produto set nomeProduto=?,tipo=? where codigoProduto=?";
+			bd.getConnection();
+			try {
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setInt(3, produto.getCodigoProduto());
+				bd.st.setString(1, produto.getNomeProduto());
+				bd.st.setString(2, produto.getTipo());
+				bd.st.executeUpdate();
+				men = "Produto alterado com sucesso!";
+			}catch(SQLException e) {
+				men = "Falha" + e.toString();
+			}finally {
+			bd.close();
+		}
+			System.out.println(men);
+			return men;
+	}*/
 
 	public String excluir(Object codigoProduto) {
 			sql = "delete from produto where codigoProduto = ?";
@@ -78,6 +100,7 @@ public class ProdutoDAO {
 			} finally {
 				bd.close();
 			}
+			System.out.println(men);
 			return men;
 		}
 	

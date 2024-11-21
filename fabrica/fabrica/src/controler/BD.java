@@ -1,4 +1,4 @@
-package model;
+package controler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,12 +40,10 @@ public class BD {
 	public void close() {
 		try {
 			if(rs!=null) rs.close();
-		}
-		catch(SQLException e) {}
+		} catch(SQLException e) {}
 		try {
 			if(st!=null) st.close();
-		}
-		catch(SQLException e) {}
+		} catch(SQLException e) {}
 		try {
 			if(con!=null) {
 				System.out.println("Desconectou...");
@@ -55,9 +53,4 @@ public class BD {
 		catch(SQLException e) {}
 	}
 	
-	/*public static void main(String[] args) {
-		BD bd = new BD();
-		bd.getConnection();
-		bd.close();
-	}*/
 }
