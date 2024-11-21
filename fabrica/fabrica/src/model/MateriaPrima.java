@@ -6,7 +6,6 @@ public class MateriaPrima {
     private String tipo;
 
 	public MateriaPrima(int codMateriaPrima, String nomeMateriaPrima, String tipo) {
-		super();
 		this.codMateriaPrima = codMateriaPrima;
 		this.nomeMateriaPrima = nomeMateriaPrima;
 		this.tipo = tipo;

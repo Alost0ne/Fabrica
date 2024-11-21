@@ -6,6 +6,7 @@ import java.util.List;
 public class OrdemProducao {
     private int numOrdemProducao;
     private Produto produto;
+    private MateriaPrima materiaPrima;
     private double qtdProducao;
 	
     public OrdemProducao(int numOrdemProducao, Produto produto, double qtdProducao) {
@@ -14,23 +15,23 @@ public class OrdemProducao {
 		this.produto = produto;
 		this.qtdProducao = qtdProducao;
 	}
-
+    
 	public int getNumOrdemProducao() {
 		return numOrdemProducao;
 	}
-
+	
 	public void setNumOrdemProducao(int numOrdemProducao) {
 		this.numOrdemProducao = numOrdemProducao;
 	}
-
+	
 	public Produto getProduto() {
 		return produto;
 	}
-
+	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-
+	
 	public double getQtdProducao() {
 		return qtdProducao;
 	}

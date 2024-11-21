@@ -2,6 +2,8 @@ package model;
 
 import java.sql.SQLException;
 
+import controler.BD;
+
 public class MateriaPrimaDAO {
 
 	private MateriaPrima materiaPrima;
