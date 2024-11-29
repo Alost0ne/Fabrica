@@ -1,47 +1,59 @@
 package model;
 
 public class MateriaPrima {
-    private int codMateriaPrima;
+    private int codigoMateriaPrima;
     private String nomeMateriaPrima;
-    private String tipo;
-
-	public MateriaPrima(int codMateriaPrima, String nomeMateriaPrima, String tipo) {
-		this.codMateriaPrima = codMateriaPrima;
+    private String tipoMateriaPrima;
+    private double quantidadeMateriaPrima;
+    
+	public MateriaPrima(int codigoMateriaPrima, String nomeMateriaPrima, String tipoMateriaPrima,
+			double quantidadeMateriaPrima) {
+		this.codigoMateriaPrima = codigoMateriaPrima;
 		this.nomeMateriaPrima = nomeMateriaPrima;
-		this.tipo = tipo;
+		this.tipoMateriaPrima = tipoMateriaPrima;
+		this.quantidadeMateriaPrima = quantidadeMateriaPrima;
+	}
+    
+    public MateriaPrima() {
+		// TODO Auto-generated constructor stub
+	}
+    
+	public int getCodigoMateriaPrima() {
+		return codigoMateriaPrima;
 	}
 
-	public int getCodMateriaPrima() {
-        return codMateriaPrima;
-    }
-
-    public void setCodMateriaPrima(int codMateriaPrima) {
-        this.codMateriaPrima = codMateriaPrima;
-    }
-
-    public String getNomeMateriaPrima() {
-        return nomeMateriaPrima;
-    }
-
-    public void setNomeMateriaPrima(String nomeMateriaPrima) {
-        this.nomeMateriaPrima = nomeMateriaPrima;
-    }
-
-	public String getTipo() {
-		return tipo;
+	public void setCodigoMateriaPrima(int codigoMateriaPrima) {
+		this.codigoMateriaPrima = codigoMateriaPrima;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public String getNomeMateriaPrima() {
+		return nomeMateriaPrima;
+	}
+
+	public void setNomeMateriaPrima(String nomeMateriaPrima) {
+		this.nomeMateriaPrima = nomeMateriaPrima;
+	}
+
+	public String getTipoMateriaPrima() {
+		return tipoMateriaPrima;
+	}
+
+	public void setTipoMateriaPrima(String tipoMateriaPrima) {
+		this.tipoMateriaPrima = tipoMateriaPrima;
+	}
+
+	public double getQuantidadeMateriaPrima() {
+		return quantidadeMateriaPrima;
+	}
+	
+	public void setQuantidadeMateriaPrima(double quantidadeMateriaPrima) {
+		this.quantidadeMateriaPrima = quantidadeMateriaPrima;
 	}
 
 	@Override
 	public String toString() {
-		return "MateriaPrima [codMateriaPrima=" + codMateriaPrima + ", nomeMateriaPrima=" + nomeMateriaPrima + ", tipo="
-				+ tipo + "]";
+		return "MateriaPrima [codigoMateriaPrima=" + codigoMateriaPrima + ", nomeMateriaPrima=" + nomeMateriaPrima
+				+ ", tipoMateriaPrima=" + tipoMateriaPrima + ", quantidadeMateriaPrima=" + quantidadeMateriaPrima + "]";
 	}
-
-
-    
-    
+	
 }

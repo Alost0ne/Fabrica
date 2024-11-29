@@ -7,7 +7,6 @@ public class Produto {
     private double quantidadeProduto;
     
 	public Produto(int codigoProduto, String nomeProduto, String tipoProduto, double quantidadeProduto) {
-		super();
 		this.codigoProduto = codigoProduto;
 		this.nomeProduto = nomeProduto;
 		this.tipoProduto = tipoProduto;
@@ -55,8 +54,5 @@ public class Produto {
 		return "Produto [codigoProduto=" + codigoProduto + ", nomeProduto=" + nomeProduto + ", tipoProduto="
 				+ tipoProduto + ", quantidadeProduto=" + quantidadeProduto + "]";
 	}
-	
-	
-    
     
 }

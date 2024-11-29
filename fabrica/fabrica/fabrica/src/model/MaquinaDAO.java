@@ -14,7 +14,7 @@ public class MaquinaDAO {
 	}
 	
 	public String cadastrar(Maquina maquina) {
-		sql = "insert into maquina values (?,?)";
+		sql = "INSERT INTO MAQUINA VALUES (?,?)";
 		bd.getConnection();
 		try {
 			bd.st = bd.con.prepareStatement(sql);
@@ -31,7 +31,7 @@ public class MaquinaDAO {
 	}
 
 	public String excluir(Object numMaquina) {
-			sql = "delete from maquina where numMaquina = ?";
+			sql = "DELETE FROM MAQUINA WHERE NUM_MAQUINA = ?";
 			bd.getConnection();
 			try {
 				bd.st = bd.con.prepareStatement(sql);

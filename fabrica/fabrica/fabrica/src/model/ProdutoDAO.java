@@ -94,7 +94,7 @@ public class ProdutoDAO {
 	}
 
 	public String excluir(Object codigoProduto) {
-			sql = "delete from produto where codigoProduto = ?";
+			sql = "DELETE FROM PRODUTO WHERE CODIGO_PRODUTO = ?";
 			bd.getConnection();
 			try {
 				bd.st = bd.con.prepareStatement(sql);
@@ -114,31 +114,6 @@ public class ProdutoDAO {
 			System.out.println(men);
 			return men;
 		}
-	
-	public List<String> listarProduto(String tipoProduto) {
-		List<String> produtos = new ArrayList<String>();
-		produtos.add("-- selecione um tipo --");
-		if (bd.getConnection()) {
-			String sql = "SELECT * from produto WHERE produto.tipo_produto = 'PDT'";
-			try {
-				bd.st = bd.con.prepareStatement(sql);
-				bd.st.setString(3, tipoProduto);
-				bd.rs = bd.st.executeQuery();
-
-				while (bd.rs.next()) {
-					produtos.add(bd.rs.getString("semestre_disciplina") + "° SEM");
-				}
-			} catch (SQLException e) {
-				System.out.println(e);
-			} finally {
-				bd.close();
-			}
-		} else {
-			System.out.println("Falha na conexão.");
-		}
-
-		return produtos;
-	}
 	
 	public List<Produto> listarTodosProdutos() {
 	    List<Produto> produtos = new ArrayList<>();
@@ -170,10 +145,33 @@ public class ProdutoDAO {
 	    } else {
 	        System.out.println("Falha na conexão.");
 	    }
-
 	    return produtos;
 	}
+	
+	/*public List<String> listarProduto(String tipoProduto) {
+		List<String> produtos = new ArrayList<String>();
+		produtos.add("-- selecione um tipo --");
+		if (bd.getConnection()) {
+			String sql = "SELECT * FROM PRODUTO";
+			try {
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setString(3, tipoProduto);
+				bd.rs = bd.st.executeQuery();
 
+				while (bd.rs.next()) {
+					produtos.add(bd.rs.getString("semestre_disciplina") + "° SEM");
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				bd.close();
+			}
+		} else {
+			System.out.println("Falha na conexão.");
+		}
+
+		return produtos;
+	}*/
 	
 	/*public List<String> listarTodosCodigosProdutos() {
 	    List<String> produtos = new ArrayList<>();
