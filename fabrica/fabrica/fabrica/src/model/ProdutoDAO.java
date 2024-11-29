@@ -17,7 +17,7 @@ public class ProdutoDAO {
 	}
 	
 	public String cadastrar(Produto produto) {
-		sql = "INSERT INTO PRODUTO VALUES (?,?,?,?)";
+		sql = "INSERT INTO PRODUTO (codigoProduto, nomeProduto, tipoProduto, quantidadeProduto) VALUES (?, ?, ?, ?)";
 		bd.getConnection();
 		try {
 			bd.st = bd.con.prepareStatement(sql);
@@ -94,7 +94,7 @@ public class ProdutoDAO {
 	}
 
 	public String excluir(Object codigoProduto) {
-			sql = "DELETE FROM PRODUTO WHERE CODIGO_PRODUTO = ?";
+			sql = "DELETE FROM PRODUTO WHERE codigoProduto = ?";
 			bd.getConnection();
 			try {
 				bd.st = bd.con.prepareStatement(sql);
@@ -115,94 +115,31 @@ public class ProdutoDAO {
 			return men;
 		}
 	
-	public List<Produto> listarTodosProdutos() {
-	    List<Produto> produtos = new ArrayList<>();
-
-	    if (bd.getConnection()) {
-	        String sql = "SELECT * FROM produto";
-	        try {
-	            bd.st = bd.con.prepareStatement(sql);
-	            bd.rs = bd.st.executeQuery();
-	            while (bd.rs.next()) {
-	                Produto produto = new Produto(
-	                    bd.rs.getInt("CODIGO_PRODUTO"),
-	                    bd.rs.getString("NOME_PRODUTO"),
-	                    bd.rs.getString("TIPO_PRODUTO"),
-	                	bd.rs.getDouble("QUANTIDADE_PRODUTO"));
-	                produtos.add(produto);
-	            }
-	        } catch (SQLException e) {
-	            System.out.println("Erro ao buscar produtos: " + e.getMessage());
-	        } finally {
-	            try {
-	                if (bd.rs != null) bd.rs.close();
-	                if (bd.st != null) bd.st.close();
-	                if (bd.con != null) bd.con.close();
-	            } catch (SQLException e) {
-	                System.out.println("Erro ao fechar recursos: " + e.getMessage());
-	            }
-	        }
-	    } else {
-	        System.out.println("Falha na conexão.");
-	    }
-	    return produtos;
-	}
-	
-	/*public List<String> listarProduto(String tipoProduto) {
-		List<String> produtos = new ArrayList<String>();
-		produtos.add("-- selecione um tipo --");
-		if (bd.getConnection()) {
+		public List<Produto> listarTodosProdutos() {
+			List<Produto> produtos = new ArrayList<>();
 			String sql = "SELECT * FROM PRODUTO";
+			
 			try {
+				bd.getConnection();  // Estabelecendo conexão com o banco
 				bd.st = bd.con.prepareStatement(sql);
-				bd.st.setString(3, tipoProduto);
-				bd.rs = bd.st.executeQuery();
-
+				bd.rs = bd.st.executeQuery();  // Executando a consulta
+				
 				while (bd.rs.next()) {
-					produtos.add(bd.rs.getString("semestre_disciplina") + "° SEM");
+					Produto produto = new Produto(
+						bd.rs.getInt("codigoProduto"),   // Obtendo o código do produto
+						bd.rs.getString("nomeProduto"),  // Obtendo o nome do produto
+						bd.rs.getString("tipoProduto"),  // Obtendo o tipo do produto
+						bd.rs.getDouble("quantidadeProduto")  // Obtendo a quantidade do produto
+					);
+					produtos.add(produto);  // Adicionando o produto à lista
 				}
 			} catch (SQLException e) {
-				System.out.println(e);
+				System.out.println("Erro ao listar produtos: " + e);
 			} finally {
-				bd.close();
+				bd.close();  // Fechando a conexão
 			}
-		} else {
-			System.out.println("Falha na conexão.");
+		
+			return produtos;  // Retornando a lista de produtos
 		}
-
-		return produtos;
-	}*/
-	
-	/*public List<String> listarTodosCodigosProdutos() {
-	    List<String> produtos = new ArrayList<>();
-	    //produtos.add("-- selecione um produto --");
-
-	    if (bd.getConnection()) {
-	        String sql = "SELECT * FROM produto"; // Query para listar todos os produtos
-	        try {
-	            bd.st = bd.con.prepareStatement(sql);
-	            bd.rs = bd.st.executeQuery();
-
-	            while (bd.rs.next()) {
-	                produtos.add(bd.rs.getString("codigo_produto"));
-	            }
-	        } catch (SQLException e) {
-	            System.out.println("Erro ao buscar produtos: " + e.getMessage());
-	        } finally {
-	            try {
-	                if (bd.rs != null) bd.rs.close();
-	                if (bd.st != null) bd.st.close();
-	                if (bd.con != null) bd.con.close();
-	            } catch (SQLException e) {
-	                System.out.println("Erro ao fechar recursos: " + e.getMessage());
-	            }
-	        }
-	    } else {
-	        System.out.println("Falha na conexão.");
-	    }
-
-	    return produtos;
-	}*/
-
-	
+		
 }

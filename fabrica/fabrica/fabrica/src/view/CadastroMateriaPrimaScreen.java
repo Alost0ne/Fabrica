@@ -29,11 +29,13 @@ public class CadastroMateriaPrimaScreen {
         titleLabel.setForeground(new Color(0, 123, 255));  // Azul vibrante
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Espaçamento ao redor do título
 
-        // Criando os componentes da tela (exemplo simples)
+        // Criando os componentes da tela
         JLabel nomeMateriaPrimaLabel = new JLabel("Nome da Matéria Prima");
         JTextField nomeMateriaPrimaField = new JTextField(20);
         JLabel tipoMateriaPrimaLabel = new JLabel("Tipo");
         JTextField tipoMateriaPrimaField = new JTextField(20);
+        JLabel quantidadeMateriaPrimaLabel = new JLabel("Quantidade");
+        JTextField quantidadeMateriaPrimaField = new JTextField(20);
 
         // Botão para cadastrar
         JButton cadastrarButton = new JButton("Cadastrar");
@@ -61,6 +63,9 @@ public class CadastroMateriaPrimaScreen {
         panel.add(Box.createVerticalStrut(10));  // Espaçamento entre os campos
         panel.add(tipoMateriaPrimaLabel);
         panel.add(tipoMateriaPrimaField);
+        panel.add(Box.createVerticalStrut(10));  // Espaçamento entre os campos
+        panel.add(quantidadeMateriaPrimaLabel);
+        panel.add(quantidadeMateriaPrimaField);
         panel.add(Box.createVerticalStrut(20));  // Espaçamento entre os campos
         panel.add(cadastrarButton);
         panel.add(Box.createVerticalStrut(10));  // Espaçamento entre os botões
@@ -71,7 +76,7 @@ public class CadastroMateriaPrimaScreen {
         frame.add(panel, BorderLayout.CENTER);
 
         // Tamanho da janela de cadastro
-        frame.setSize(400, 400);
+        frame.setSize(400, 450);
         frame.setLocationRelativeTo(null); // Centraliza a janela
 
         // Tornar a janela visível
@@ -83,31 +88,42 @@ public class CadastroMateriaPrimaScreen {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Coletando os dados dos campos
-                    String nomeMateriaPrima = nomeMateriaPrimaField.getText();
-                    String tipoMateriaPrima = tipoMateriaPrimaField.getText();
+                    String nomeMateriaPrima = nomeMateriaPrimaField.getText().trim();
+                    String tipoMateriaPrima = tipoMateriaPrimaField.getText().trim();
+                    String quantidadeStr = quantidadeMateriaPrimaField.getText().trim();
 
-                    // Validando se o nome e tipo foram preenchidos
-                    if (nomeMateriaPrima.isEmpty() || tipoMateriaPrima.isEmpty()) {
+                    // Validando se o nome, tipo e quantidade foram preenchidos
+                    if (nomeMateriaPrima.isEmpty() || tipoMateriaPrima.isEmpty() || quantidadeStr.isEmpty()) {
                         JOptionPane.showMessageDialog(frame, "Por favor, preencha todos os campos.");
                         return;
                     }
 
+                    // Verificando se a quantidade é um número válido
+                    double quantidadeMateriaPrima;
+                    try {
+                        quantidadeMateriaPrima = Double.parseDouble(quantidadeStr);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Quantidade inválida. Por favor, insira um número válido.");
+                        return;
+                    }
+
                     // Criando o objeto MateriaPrima
-                    MateriaPrima materiaPrima = new MateriaPrima(0, nomeMateriaPrima, tipoMateriaPrima, 0);
+                    MateriaPrima materiaPrima = new MateriaPrima(0, nomeMateriaPrima, tipoMateriaPrima, quantidadeMateriaPrima);
 
                     // Criando uma instância de MateriaPrimaDAO para cadastrar a matéria prima
                     MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
                     String mensagem = materiaPrimaDAO.cadastrar(materiaPrima);
 
-                    // Exibindo a mensagem de retorno do cadastro
+                    // Exibindo a mensagem de sucesso ou erro
                     JOptionPane.showMessageDialog(frame, mensagem);
 
-                    // Limpar os campos após o cadastro
+                    // Limpando os campos após o cadastro
                     nomeMateriaPrimaField.setText("");
                     tipoMateriaPrimaField.setText("");
+                    quantidadeMateriaPrimaField.setText("");
+
                 } catch (Exception ex) {
-                    // Exibindo mensagem de erro genérica
-                    JOptionPane.showMessageDialog(frame, "Erro ao cadastrar: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(frame, "Ocorreu um erro: " + ex.getMessage());
                 }
             }
         });
@@ -116,21 +132,18 @@ public class CadastroMateriaPrimaScreen {
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Fechar a tela de cadastro de matéria prima
-                frame.dispose();
-                // Reabrir a tela inicial
-                mainFrame.setVisible(true);
+                frame.dispose();  // Fecha a janela de cadastro
+                mainFrame.setVisible(true);  // Torna a janela principal visível novamente
             }
         });
     }
 
-    // Método para estilizar os botões
+    // Função para estilizar os botões
     private void styleButton(JButton button) {
-        button.setBackground(new Color(0, 123, 255));  // Azul vibrante
-        button.setForeground(Color.WHITE);  // Texto branco
-        button.setFont(new Font("Arial", Font.BOLD, 16));  // Fonte maior e em negrito
-        button.setFocusPainted(false);  // Remove o contorno ao clicar
-        button.setBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2)); // Borda azul
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));  // Cursor de mão ao passar por cima
+        button.setBackground(new Color(0, 123, 255));  // Cor de fundo azul
+        button.setForeground(Color.WHITE);  // Cor do texto branca
+        button.setFont(new Font("Arial", Font.BOLD, 14));  // Fonte mais forte
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));  // Padding interno
+        button.setFocusPainted(false);  // Remove o foco quando o botão é clicado
     }
 }

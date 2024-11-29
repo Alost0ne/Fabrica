@@ -26,14 +26,18 @@ public class CadastroProdutoScreen {
         JTextField nomeProdutoField = new JTextField(20);
         JLabel tipoProdutoLabel = new JLabel("Tipo do Produto");
         JTextField tipoProdutoField = new JTextField(20);
+        JLabel quantidadeProdutoLabel = new JLabel("Quantidade do Produto");
+        JTextField quantidadeProdutoField = new JTextField(10);
 
         // Estilizando os campos
         codigoProdutoLabel.setFont(font);
         nomeProdutoLabel.setFont(font);
         tipoProdutoLabel.setFont(font);
+        quantidadeProdutoLabel.setFont(font);
         codigoProdutoField.setFont(font);
         nomeProdutoField.setFont(font);
         tipoProdutoField.setFont(font);
+        quantidadeProdutoField.setFont(font);
 
         // Criando os botões
         JButton cadastrarButton = new JButton("Cadastrar");
@@ -50,6 +54,8 @@ public class CadastroProdutoScreen {
         frame.add(nomeProdutoField);
         frame.add(tipoProdutoLabel);
         frame.add(tipoProdutoField);
+        frame.add(quantidadeProdutoLabel);
+        frame.add(quantidadeProdutoField);
         frame.add(cadastrarButton);
         frame.add(voltarButton);
 
@@ -63,26 +69,35 @@ public class CadastroProdutoScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    // Coletando os dados dos campos
                     int codigoProduto = Integer.parseInt(codigoProdutoField.getText());
                     String nomeProduto = nomeProdutoField.getText();
                     String tipoProduto = tipoProdutoField.getText();
+                    double quantidadeProduto = Double.parseDouble(quantidadeProdutoField.getText()); // Valida quantidade
 
-                    if (nomeProduto.isEmpty() || tipoProduto.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Por favor, preencha todos os campos.");
+                    // Verificando se os campos não estão vazios
+                    if (nomeProduto.isEmpty() || tipoProduto.isEmpty() || quantidadeProduto <= 0) {
+                        JOptionPane.showMessageDialog(frame, "Por favor, preencha todos os campos corretamente.");
                         return;
                     }
 
-                    Produto produto = new Produto(codigoProduto, nomeProduto, tipoProduto, 0);
+                    // Criando o objeto Produto
+                    Produto produto = new Produto(codigoProduto, nomeProduto, tipoProduto, quantidadeProduto);
+
+                    // Criando uma instância de ProdutoDAO para cadastrar o produto
                     ProdutoDAO produtoDAO = new ProdutoDAO();
                     String mensagem = produtoDAO.cadastrar(produto);
 
+                    // Exibindo a mensagem de retorno do cadastro
                     JOptionPane.showMessageDialog(frame, mensagem);
+
                     // Limpando os campos
                     codigoProdutoField.setText("");
                     nomeProdutoField.setText("");
                     tipoProdutoField.setText("");
+                    quantidadeProdutoField.setText("");
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(frame, "O código do produto deve ser um valor inteiro.");
+                    JOptionPane.showMessageDialog(frame, "Erro: Verifique se os campos estão corretos (código e quantidade devem ser numéricos).");
                 }
             }
         });

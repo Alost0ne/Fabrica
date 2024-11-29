@@ -94,6 +94,16 @@ public class CadastroMaquinaScreen {
                 }
             }
         });
+
+        // Ação do botão "Voltar"
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Fechar a tela de cadastro de máquina e voltar para a tela principal (ou de listagem)
+                frame.dispose();  // Fecha a janela atual (de cadastro de máquina)
+                mainFrame.setVisible(true);  // Exibe a tela principal (passada como parâmetro)
+            }
+        });
     }
 
     // Método auxiliar para estilizar os botões
@@ -104,4 +114,3 @@ public class CadastroMaquinaScreen {
         button.setBorder(BorderFactory.createLineBorder(new Color(0, 123, 255), 2));
     }
 }
-    
