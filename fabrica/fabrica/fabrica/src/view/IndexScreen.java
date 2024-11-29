@@ -9,7 +9,7 @@
 
         public static void main(String[] args) {
             // Criando a janela principal (JFrame)
-            JFrame frame = new JFrame("Tela Inicial");
+            JFrame frame = new JFrame("Tela Inicial");  
 
             // Definindo a operação padrão para o fechamento da janela
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -72,7 +72,7 @@ public class CadastroProdutoScreen {
                         return;
                     }
 
-                    Produto produto = new Produto(codigoProduto, nomeProduto, tipoProduto);
+                    Produto produto = new Produto(codigoProduto, nomeProduto, tipoProduto, 0);
                     ProdutoDAO produtoDAO = new ProdutoDAO();
                     String mensagem = produtoDAO.cadastrar(produto);
 

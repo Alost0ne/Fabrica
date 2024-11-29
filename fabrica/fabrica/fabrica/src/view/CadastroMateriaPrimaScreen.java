@@ -93,7 +93,7 @@ public class CadastroMateriaPrimaScreen {
                     }
 
                     // Criando o objeto MateriaPrima
-                    MateriaPrima materiaPrima = new MateriaPrima(0, nomeMateriaPrima, tipoMateriaPrima);
+                    MateriaPrima materiaPrima = new MateriaPrima(0, nomeMateriaPrima, tipoMateriaPrima, 0);
 
                     // Criando uma instância de MateriaPrimaDAO para cadastrar a matéria prima
                     MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();

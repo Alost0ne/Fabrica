@@ -5,7 +5,6 @@ public class Maquina {
     private String nomeMaquina;
     
     public Maquina(int numMaquina, String nomeMaquina) {
-		super();
 		this.numMaquina = numMaquina;
 		this.nomeMaquina = nomeMaquina;
 	}
@@ -30,12 +29,9 @@ public class Maquina {
 		this.nomeMaquina = nomeMaquina;
 	}
 
-	/**
-	 * método produzir
-	 */
-	public void produzir() {
-    	
-    }
-
-    
+	@Override
+	public String toString() {
+		return "Maquina [numMaquina=" + numMaquina + ", nomeMaquina=" + nomeMaquina + "]";
+	}
+	
 }
