@@ -4,15 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.Maquina;
-import model.MaquinaDAO;
+import model.MateriaPrima;
+import model.MateriaPrimaDAO;
 
-public class CadastroMaquinaScreen {
+public class CadastroMateriaPrimaScreen {
 
     // Construtor que recebe o JFrame da tela principal
-    public CadastroMaquinaScreen(JFrame mainFrame) {
-        // Criando a janela para cadastro de máquina (JFrame)
-        JFrame frame = new JFrame("Cadastro de Máquina");
+    public CadastroMateriaPrimaScreen(JFrame mainFrame) {
+        // Criando a janela para cadastro de matéria prima (JFrame)
+        JFrame frame = new JFrame("Cadastro de Matéria Prima");
 
         // Definindo a operação padrão para o fechamento da janela
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,17 +23,17 @@ public class CadastroMaquinaScreen {
         // Definindo a cor de fundo da janela
         frame.getContentPane().setBackground(new Color(240, 248, 255)); // Azul claro
 
-        // Título da tela (Cadastro de Máquina)
-        JLabel titleLabel = new JLabel("Cadastro de Máquina", JLabel.CENTER);
+        // Título da tela (Cadastro de Matéria Prima)
+        JLabel titleLabel = new JLabel("Cadastro de Matéria Prima", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));  // Tamanho maior para o título
         titleLabel.setForeground(new Color(0, 123, 255));  // Azul vibrante
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Espaçamento ao redor do título
 
         // Criando os componentes da tela (exemplo simples)
-        JLabel numMaquinaLabel = new JLabel("Número da Máquina");
-        JTextField numMaquinaField = new JTextField(10);
-        JLabel nomeMaquinaLabel = new JLabel("Nome da Máquina");
-        JTextField nomeMaquinaField = new JTextField(10);
+        JLabel nomeMateriaPrimaLabel = new JLabel("Nome da Matéria Prima");
+        JTextField nomeMateriaPrimaField = new JTextField(20);
+        JLabel tipoMateriaPrimaLabel = new JLabel("Tipo");
+        JTextField tipoMateriaPrimaField = new JTextField(20);
 
         // Botão para cadastrar
         JButton cadastrarButton = new JButton("Cadastrar");
@@ -56,11 +56,11 @@ public class CadastroMaquinaScreen {
         panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Espaçamento interno
 
         // Adicionando os componentes ao painel
-        panel.add(numMaquinaLabel);
-        panel.add(numMaquinaField);
+        panel.add(nomeMateriaPrimaLabel);
+        panel.add(nomeMateriaPrimaField);
         panel.add(Box.createVerticalStrut(10));  // Espaçamento entre os campos
-        panel.add(nomeMaquinaLabel);
-        panel.add(nomeMaquinaField);
+        panel.add(tipoMateriaPrimaLabel);
+        panel.add(tipoMateriaPrimaField);
         panel.add(Box.createVerticalStrut(20));  // Espaçamento entre os campos
         panel.add(cadastrarButton);
         panel.add(Box.createVerticalStrut(10));  // Espaçamento entre os botões
@@ -83,30 +83,31 @@ public class CadastroMaquinaScreen {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Coletando os dados dos campos
-                    int numMaquina = Integer.parseInt(numMaquinaField.getText()); // Pode gerar exceção
-                    String nomeMaquina = nomeMaquinaField.getText();
+                    String nomeMateriaPrima = nomeMateriaPrimaField.getText();
+                    String tipoMateriaPrima = tipoMateriaPrimaField.getText();
 
-                    if (nomeMaquina.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Por favor, preencha o nome da máquina.");
+                    // Validando se o nome e tipo foram preenchidos
+                    if (nomeMateriaPrima.isEmpty() || tipoMateriaPrima.isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Por favor, preencha todos os campos.");
                         return;
                     }
 
-                    // Criando o objeto Maquina
-                    Maquina maquina = new Maquina(numMaquina, nomeMaquina);
+                    // Criando o objeto MateriaPrima
+                    MateriaPrima materiaPrima = new MateriaPrima(0, nomeMateriaPrima, tipoMateriaPrima);
 
-                    // Criando uma instância de MaquinaDAO para cadastrar a máquina
-                    MaquinaDAO maquinaDAO = new MaquinaDAO();
-                    String mensagem = maquinaDAO.cadastrar(maquina);
+                    // Criando uma instância de MateriaPrimaDAO para cadastrar a matéria prima
+                    MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
+                    String mensagem = materiaPrimaDAO.cadastrar(materiaPrima);
 
                     // Exibindo a mensagem de retorno do cadastro
                     JOptionPane.showMessageDialog(frame, mensagem);
 
                     // Limpar os campos após o cadastro
-                    numMaquinaField.setText("");
-                    nomeMaquinaField.setText("");
-                } catch (NumberFormatException ex) {
-                    // Exibindo mensagem de erro se o número da máquina não for válido
-                    JOptionPane.showMessageDialog(frame, "O número da máquina deve ser um valor inteiro.");
+                    nomeMateriaPrimaField.setText("");
+                    tipoMateriaPrimaField.setText("");
+                } catch (Exception ex) {
+                    // Exibindo mensagem de erro genérica
+                    JOptionPane.showMessageDialog(frame, "Erro ao cadastrar: " + ex.getMessage());
                 }
             }
         });
@@ -115,7 +116,7 @@ public class CadastroMaquinaScreen {
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Fechar a tela de cadastro de máquina
+                // Fechar a tela de cadastro de matéria prima
                 frame.dispose();
                 // Reabrir a tela inicial
                 mainFrame.setVisible(true);
@@ -126,11 +127,10 @@ public class CadastroMaquinaScreen {
     // Método para estilizar os botões
     private void styleButton(JButton button) {
         button.setBackground(new Color(0, 123, 255));  // Azul vibrante
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(0, 123, 255), 2));  // Borda azul
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));  // Cursor de mão ao passar sobre o botão
-        button.setPreferredSize(new Dimension(250, 50));
+        button.setForeground(Color.WHITE);  // Texto branco
+        button.setFont(new Font("Arial", Font.BOLD, 16));  // Fonte maior e em negrito
+        button.setFocusPainted(false);  // Remove o contorno ao clicar
+        button.setBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 2)); // Borda azul
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));  // Cursor de mão ao passar por cima
     }
 }
