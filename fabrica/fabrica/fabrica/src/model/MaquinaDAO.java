@@ -6,63 +6,61 @@ import controler.BD;
 public class MaquinaDAO {
 
     private BD bd;
-    private String sql, men; // variáveis auxiliares
+    private String sql, men; // Variáveis auxiliares
 
     public MaquinaDAO() {
         bd = new BD(); // Cria uma nova instância de BD
     }
 
+    // Método para cadastrar máquina
     public String cadastrar(Maquina maquina) {
         sql = "INSERT INTO maquina (numMaquina, nomeMaquina) VALUES (?, ?)";
-        bd.getConnection(); // Estabelece a conexão
+        
+        if (!bd.getConnection()) {  // Verifica se a conexão foi bem-sucedida
+            return "Falha na conexão com o banco de dados!";
+        }
 
         try {
-            if (bd.con != null) {
-                // Prepare o statement
-                bd.st = bd.con.prepareStatement(sql);
-                bd.st.setInt(1, maquina.getNumMaquina());
-                bd.st.setString(2, maquina.getNomeMaquina());
-                int rowsAffected = bd.st.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    men = "Máquina cadastrada com sucesso!";
-                } else {
-                    men = "Falha no cadastro: Nenhuma linha afetada.";
-                }
+            // Prepare o statement
+            bd.st = bd.con.prepareStatement(sql);
+            bd.st.setInt(1, maquina.getNumMaquina());
+            bd.st.setString(2, maquina.getNomeMaquina());
+            int rowsAffected = bd.st.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                return "Máquina cadastrada com sucesso!";
             } else {
-                men = "Falha na conexão com o banco de dados!";
+                return "Falha no cadastro: Nenhuma linha afetada.";
             }
         } catch (SQLException e) {
-            men = "Falha no cadastro: " + e.getMessage();
+            return "Falha no cadastro: " + e.getMessage();
         } finally {
-            bd.close(); // Fecha a conexão
+            bd.close();  // Fecha a conexão
         }
-        return men;
     }
 
+    // Método para excluir máquina
     public String excluir(Object numMaquina) {
         sql = "DELETE FROM maquina WHERE numMaquina = ?";
-        bd.getConnection(); // Estabelece a conexão
+        
+        if (!bd.getConnection()) {  // Verifica se a conexão foi bem-sucedida
+            return "Falha na conexão com o banco de dados!";
+        }
 
         try {
-            if (bd.con != null) {
-                bd.st = bd.con.prepareStatement(sql);
-                bd.st.setObject(1, numMaquina);
-                int rowsAffected = bd.st.executeUpdate();
+            bd.st = bd.con.prepareStatement(sql);
+            bd.st.setObject(1, numMaquina);
+            int rowsAffected = bd.st.executeUpdate();
 
-                if (rowsAffected == 1) {
-                    men = "Máquina excluída com sucesso!";
-                } else {
-                    men = "Máquina não encontrada!";
-                }
+            if (rowsAffected == 1) {
+                return "Máquina excluída com sucesso!";
             } else {
-                men = "Falha na conexão com o banco de dados!";
+                return "Máquina não encontrada!";
             }
         } catch (SQLException e) {
-            men = "Falha na exclusão: " + e.getMessage();
+            return "Falha na exclusão: " + e.getMessage();
         } finally {
-            bd.close(); // Fecha a conexão
+            bd.close();  // Fecha a conexão
         }
-        return men;
     }
 }
